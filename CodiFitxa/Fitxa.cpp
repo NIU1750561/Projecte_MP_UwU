@@ -1,88 +1,42 @@
 #include "Fitxa.h"
 
-// Constructor per defecte: fitxa buida
-Fitxa::Fitxa() 
-{
-    m_tipus = TIPUS_EMPTY;
-    m_numMoviments = 0;
-    // m_color no cal inicialitzar si és empty
+Fitxa::Fitxa() : m_tipus(TIPUS_EMPTY), m_color(COLOR_BLANC), m_nMoviments(0) {}
+
+Fitxa::Fitxa(TipusFitxa tipus, ColorFitxa color)
+    : m_tipus(tipus), m_color(color), m_nMoviments(0) {
 }
 
-// Constructor amb paràmetres
-Fitxa::Fitxa(ColorFitxa color, TipusFitxa tipus) 
-{
-    m_color = color;
-    m_tipus = tipus;
-    m_numMoviments = 0;
+TipusFitxa Fitxa::getTipus() const { return m_tipus; }
+ColorFitxa Fitxa::getColor() const { return m_color; }
+
+void Fitxa::setTipus(TipusFitxa tipus) { m_tipus = tipus; }
+void Fitxa::setColor(ColorFitxa color) { m_color = color; }
+
+void Fitxa::afegeixMovimentValid(const Moviment& moviment) {
+    if (m_nMoviments < MAX_MOVIMENTS) {
+        m_movimentsValids[m_nMoviments] = moviment;
+        m_nMoviments++;
+    }
 }
 
-// Getters
-TipusFitxa Fitxa::getTipus() const 
-{
-    return m_tipus;
+void Fitxa::buidaMoviments() { m_nMoviments = 0; }
+
+int Fitxa::getNMoviments() const { return m_nMoviments; }
+
+const Moviment& Fitxa::getMoviment(int index) const {
+    return m_movimentsValids[index];
 }
 
-ColorFitxa Fitxa::getColor() const 
-{
-    return m_color;
-}
-
-bool Fitxa::esBuida() const 
-{
+bool Fitxa::esBuida() const {
     return m_tipus == TIPUS_EMPTY;
 }
 
-bool Fitxa::esDama() const 
-{
-    return m_tipus == TIPUS_DAMA;
-}
-
-// Setters
-void Fitxa::setTipus(TipusFitxa tipus) 
-{
-    m_tipus = tipus;
-}
-
-void Fitxa::setColor(ColorFitxa color) 
-{
-    m_color = color;
-}
-
-// Conversió a dama
-void Fitxa::convertirEnDama() 
-{
-    if (m_tipus == TIPUS_NORMAL) 
-    {
-        m_tipus = TIPUS_DAMA;
-    }
-}
-
-// Moviments vàlids
-void Fitxa::afegeixMovimentValid(const Moviment& mov) 
-{
-    if (m_numMoviments < MAX_MOVIMENTS) 
-    {
-        m_movimentsValids[m_numMoviments] = mov;
-        m_numMoviments++;
-    }
-}
-
-void Fitxa::netejaMoviments() 
-{
-    m_numMoviments = 0;
-}
-
-int Fitxa::getNumMoviments() const 
-{
-    return m_numMoviments;
-}
-
-Moviment Fitxa::getMoviment(int i) const 
-{
-    if (i >= 0 && i < m_numMoviments) 
-    {
-        return m_movimentsValids[i];
-    }
-    // Retornem moviment buit si l'índex no és vàlid
-    return Moviment();
+char Fitxa::toChar() const {
+    if (m_tipus == TIPUS_EMPTY)
+        return '-';
+    if (m_tipus == TIPUS_NORMAL)
+        return (m_color == COLOR_BLANC) ? 'O' : 'X';
+    if (m_tipus == TIPUS_DAMA)
+        return (m_color == COLOR_BLANC) ? 'D' : 'R';
+    return '?';
 }

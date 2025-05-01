@@ -1,65 +1,38 @@
 #ifndef FITXA_H
 #define FITXA_H
 
-#include <iostream>
-#include "Posicio.h"
 #include "Moviment.h"
-
+#include <string>
 using namespace std;
 
-const int MAX_MOVIMENTS = 10;
+typedef enum { TIPUS_NORMAL, TIPUS_DAMA, TIPUS_EMPTY } TipusFitxa;
+typedef enum { COLOR_NEGRE, COLOR_BLANC } ColorFitxa;
 
-typedef enum 
-{
-    TIPUS_NORMAL,
-    TIPUS_DAMA,
-    TIPUS_EMPTY
+const int MAX_MOVIMENTS = 50;  // màxim moviments vàlids guardats
 
-} TipusFitxa;
-
-typedef enum 
-{
-    COLOR_NEGRE,
-    COLOR_BLANC
-
-} ColorFitxa;
-
-class Fitxa
-{
+class Fitxa {
 private:
     TipusFitxa m_tipus;
     ColorFitxa m_color;
-
     Moviment m_movimentsValids[MAX_MOVIMENTS];
-
-    int m_numMoviments;
+    int m_nMoviments;
 
 public:
-    // Constructors
-    Fitxa(); // Fitxa buida
-    Fitxa(ColorFitxa color, TipusFitxa tipus);
+    Fitxa();
+    Fitxa(TipusFitxa tipus, ColorFitxa color);
 
-    // Getters
     TipusFitxa getTipus() const;
     ColorFitxa getColor() const;
-
-    bool esBuida() const;
-    bool esDama() const;
-
-    // Setters
     void setTipus(TipusFitxa tipus);
     void setColor(ColorFitxa color);
 
-    // Gestió moviments
-    void afegeixMovimentValid(const Moviment& mov);
-    void netejaMoviments();
+    void afegeixMovimentValid(const Moviment& moviment);
+    void buidaMoviments();
+    int getNMoviments() const;
+    const Moviment& getMoviment(int index) const;
 
-    int getNumMoviments() const;
-
-    Moviment getMoviment(int i) const;
-
-    // Conversió a dama
-    void convertirEnDama();
+    bool esBuida() const;
+    char toChar() const;
 };
 
 #endif
