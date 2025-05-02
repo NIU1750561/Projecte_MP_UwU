@@ -8,7 +8,7 @@ using namespace std;
 typedef enum { TIPUS_NORMAL, TIPUS_DAMA, TIPUS_EMPTY } TipusFitxa;
 typedef enum { COLOR_NEGRE, COLOR_BLANC } ColorFitxa;
 
-const int MAX_MOVIMENTS = 50;  // màxim moviments vàlids guardats
+const int MAX_MOVIMENTS = 50; 
 
 class Fitxa {
 private:
