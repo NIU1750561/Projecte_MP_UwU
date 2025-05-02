@@ -1,4 +1,4 @@
-#include "Tauler.h"
+#include "tauler.hpp"
 #include <fstream>
 #include <sstream>
 
@@ -127,7 +127,7 @@ void Tauler::calculaMovimentsDama(int f, int c) {
                 if (!haTrobatRival)
                     haTrobatRival = true;
                 else
-                    break;  // dues peces rivals no Ès v‡lid
+                    break;  // dues peces rivals no √©s v√†lid
             }
 
             nf += df[dir];
@@ -149,7 +149,7 @@ void Tauler::eliminaFitxesCapturades(const Posicio& origen, const Posicio& desti
 
     while (nf != fDes || nc != cDes) {
         if (!m_tauler[nf][nc].esBuida())
-            m_tauler[nf][nc] = Fitxa();  // eliminem peÁa capturada
+            m_tauler[nf][nc] = Fitxa();  // eliminem pe√ßa capturada
 
         nf += df;
         nc += dc;
@@ -179,7 +179,7 @@ bool Tauler::hiHaCapturaPossible(ColorFitxa colorJugador) const {
                 const Moviment& m = fitxa.getMoviment(k);
                 if (m.getNPosicions() > 0) {
                     int fDif = abs(m.getPosicio(0).getFila() - i);
-                    if (fDif >= 2)  // dist‡ncia 2 o mÈs vol dir captura
+                    if (fDif >= 2)  // dist√†ncia 2 o m√©s vol dir captura
                         return true;
                 }
             }
@@ -215,7 +215,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti) {
 
     bool obligatCaptura = hiHaCapturaPossible(fitxa.getColor());
     if (obligatCaptura && !esCaptura) {
-        // Bufa: eliminem peÁa perquË no ha fet captura quan tocava
+        // Bufa: eliminem pe√ßa perqu√® no ha fet captura quan tocava
         m_tauler[fOri][cOri] = Fitxa();
         return false;
     }
